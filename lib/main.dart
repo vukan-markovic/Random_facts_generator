@@ -76,12 +76,27 @@ class _MyHomePageState extends State<MyHomePage> {
               child: FutureBuilder(
                 future: fact,
                 builder: (context, snapshot) {
-                  if (snapshot.hasData)
-                    return Text(
-                      snapshot.data.toString().substring(
-                          2, snapshot.data.toString().indexOf('Source:')),
-                      style: Theme.of(context).textTheme.title,
-                    );
+                  if (snapshot.hasData) {
+                    if (snapshot.data.toString() ==
+                        'You must be connected to internet to get facts!' ||
+                        snapshot.data.toString() == 'Error on sending request!')
+                      return Text(
+                        snapshot.data.toString(),
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .title,
+                      );
+                    else
+                      return Text(
+                        snapshot.data.toString().substring(
+                            2, snapshot.data.toString().indexOf('Source:')),
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .title,
+                      );
+                  }
                   return CircularProgressIndicator();
                 },
               ),
